@@ -32,7 +32,7 @@ setInterval(() => {
 
         // Send back the message to the other clients
         wss.clients
-          .forEach(client => {
+          .forEach(ws => {
             if (client != ws) {
               client.send(`Hello, broadcast message -> ${message}`);
             }
