@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Websocket test server",
   "main": "index.js",
+  "engines": {
+    "node": "6.11.5"
+  },
   "scripts": {
     "start": "nodemon index.js --exec babel-node --presets es2015,stage-2",
     "test": "echo \"Error: no test specified\" && exit 1"
