@@ -1,13 +1,28 @@
-
 'use strict';
 
-// import express from 'express';
-// import http from 'http';
-// import WebSocketServer from 'uws';
+const express = require('express');
+const SocketServer = require('uws').Server;
+const path = require('path');
 
+const PORT = process.env.PORT || 3000;
+const INDEX = path.join(__dirname, 'index.html');
+
+const server = express()
+  .use((req, res) => res.sendFile(INDEX) )
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+const wss = new SocketServer({ server });
+
+wss.on('connection', (ws) => {
+  console.log('Client connected');
+  ws.on('close', () => console.log('Client disconnected'));
+});
+
+
+/*
 const express = require('express');
 const http = require('http');
-const WebSocketServer = require('uws');
+const WebSocketServer = require('uws').Server;
 
 const PORT = process.env.PORT || 3000;
 
@@ -18,7 +33,7 @@ const app = express();
 const server = http.createServer(app);
 
 // Initialize a WebSocket server instance
-const wss = new WebSocketServer.Server({ server });
+const wss = new WebSocketServer({ server });
 
 wss.on('connection', (ws) => {
 
@@ -51,4 +66,4 @@ wss.on('connection', (ws) => {
 
 server.listen(PORT, () => {
   console.log(`Server started on port ${server.address().port} :)`);
-});
+});*/
